@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: astie-diesel-backend
+    runtime: node
+    buildCommand: "unzip -o ASTIE_DIESEL_Render_ready.zip -d . && cd server && npm install"
+    startCommand: "cd server && npm start"
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DB_PATH
+        value: /var/data/astie.db
+      - key: ORIGIN
+        value: https://astiedieselcompleto.vercel.app
+      - key: TRUST_PROXY
+        value: "1"
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: SELLER_PASSWORD
+        sync: false
+      - key: SETUP_KEY
+        sync: false
+    disk:
+      name: astie-diesel-data
+      mountPath: /var/data
+      sizeGB: 1
